@@ -1,7 +1,6 @@
 package com.amazon.deunit
 
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestTemplate
 import org.junit.jupiter.api.assertThrows
 import java.sql.SQLException
 import kotlin.test.assertEquals
@@ -14,7 +13,6 @@ class TestProductTable : AbstractTestSQL() {
         executeQuery("SELECT count(*) FROM product")
         executeQuery("SELECT * FROM product" ) {
             assertResultNotEmpty()
-//            assertUniqueValue(columns = listOf("product_name"))
             assertUniqueValue("product_name")
             forEachRow {
                 assertTrue( columnValueAsInt("id") > 0 )
@@ -63,7 +61,7 @@ class TestProductTable : AbstractTestSQL() {
     fun testExecutingFile() {
         executeQueryFile("product_test.sql") {
             assertResultNotEmpty()
-            assertSize(1)
+            assertResultSize(1)
             rowAt(0) {
                 assertEquals("Desk", columnValueAsString("product_name"))
             }

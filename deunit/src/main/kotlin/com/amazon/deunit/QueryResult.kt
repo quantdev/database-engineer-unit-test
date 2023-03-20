@@ -1,10 +1,8 @@
 package com.amazon.deunit
 
-import java.lang.RuntimeException
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
@@ -13,7 +11,7 @@ class QueryResult private constructor( private val metaData: ResultSetMetaData
 
     companion object {
         fun create(resultSet: ResultSet): QueryResult {
-            val metaData = resultSet.metaData;
+            val metaData = resultSet.metaData
             val numColumns = metaData.columnCount
 
             val rows = mutableListOf<QueryResultRow>()
@@ -30,13 +28,11 @@ class QueryResult private constructor( private val metaData: ResultSetMetaData
         }
     }
 
-
-
     val size: Int
         get() = rows.size
 
     operator fun invoke(action: QueryResult.() -> Unit = {}) {
-        this.action();
+        this.action()
     }
 
     fun forEachRow( action: QueryResultRow.() -> Unit = {}) {
@@ -59,7 +55,7 @@ class QueryResult private constructor( private val metaData: ResultSetMetaData
         assertTrue(size > 0 ,"Expected: non-empty result Actual: emtpy")
     }
 
-    fun assertSize(expected: Int) {
+    fun assertResultSize(expected: Int) {
         assertEquals(expected, size)
     }
 
