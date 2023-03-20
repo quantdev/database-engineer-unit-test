@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  db:
+    #image: postgres:10.21
+    image: postgres:10
+    environment:
+      POSTGRES_PASSWORD: mypassword
+    ports: 
+      - "5432:5432"
+    volumes:
+      - ${HOME}/Devel/flyway/postgres/data:/var/lib/postgresql/data
+
+        #  adminer:
+        #    image: adminer
+        #    restart: always
+        #    ports:
+        #      - 8080:8080
+
+# docker run -d \
+# 	--name dev-postgres \
+# 	-e POSTGRES_PASSWORD=Pass2020! \
+# 	-v ${HOME}/postgres-data/:/var/lib/postgresql/data \
+#         -p 5432:5432
+#         postgres
